@@ -2,15 +2,11 @@ package dev.java.project.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
@@ -23,19 +19,16 @@ public class CreditCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
-
-    @Column(name = "card_number", nullable = false, length = 20)
+    @Column(name = "card_number", nullable = false)
     private String cardNumber;
 
-    @Column(name = "cardholder_name", nullable = false, length = 100)
+    @Column(name = "cardholder_name", nullable = false)
     private String cardholderName;
 
     @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
-    @Column(name = "cvv", nullable = false, length = 4)
+    @Column(name = "cvv", nullable = false)
     private String cvv;
 
     @Column(name = "created_at", nullable = false)
@@ -44,9 +37,7 @@ public class CreditCard {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
-	private User user;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
