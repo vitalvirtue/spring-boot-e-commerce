@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.io.Console;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -59,6 +61,7 @@ public class UserService {
              if (authentication != null && authentication.isAuthenticated()){
                 String userEmail = authentication.getName();
                 User user = getUserByEmail(userEmail);
+                
                 if(user.getId() != id){
                     log.warn("Users only delete themself", id);
 				    return false;
@@ -66,11 +69,10 @@ public class UserService {
              }
             
             
-            else {
-            
-				userRepository.deleteById(id);
-				log.info("User deleted successfully with id: {}", id);
-			}
+           
+			userRepository.deleteById(id);
+			log.info("User deleted successfully with id: {}", id);
+			
 		} catch (Exception e) {
 			log.error("An error occurred while deleting user with id: {}: {}", id, e.getMessage());
 			throw e;
