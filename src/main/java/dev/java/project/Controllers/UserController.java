@@ -58,4 +58,18 @@ public class UserController {
         return ResponseEntity.ok(userService.buyOrReturnProduct(user));
     }
 
+
+    @PutMapping("return/{id}")
+    public ResponseEntity<User> returnProduct(@PathVariable Long id) {
+        
+
+        User user = userService.getUserByID(id);
+
+        
+        user.setPurchaseDate(null);
+        user.setProduct(null);
+        
+        return ResponseEntity.ok(userService.buyOrReturnProduct(user));
+    }
+
 }
