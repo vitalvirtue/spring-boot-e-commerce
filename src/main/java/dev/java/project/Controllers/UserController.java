@@ -27,33 +27,4 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
-
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
-        ModelMapper modelMapper = new ModelMapper();
-        User user = modelMapper.map(userDTO,User.class);
-        LocalDateTime dateTime = LocalDateTime.now();
-        user.setCreatedAt(dateTime);
-		user.setUpdatedAt(dateTime);
-
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        User newUser = userService.createUser(user);
-
-        UserDTO newUserDTO = modelMapper.map(newUser,UserDTO.class);
-        return ResponseEntity.ok(newUserDTO);
-        
-        
-    }
-
-    @GetMapping("/b")
-    public ResponseEntity<?> registerUser() {
-       
-        return ResponseEntity.ok("newUserDTO");
-        
-        
-    }
 }

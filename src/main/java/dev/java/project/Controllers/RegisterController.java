@@ -49,11 +49,5 @@ public class RegisterController {
         
     }
 
-    @GetMapping("/b")
-    public ResponseEntity<?> registerUser() {
-       
-        return ResponseEntity.ok("newUserDTO");
-        
-        
-    }
+ 
 }
