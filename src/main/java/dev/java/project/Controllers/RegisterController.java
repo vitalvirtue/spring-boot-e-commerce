@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("public/register")
 @AllArgsConstructor
-public class UserController {
+public class RegisterController {
 
     @Autowired
     private final UserService userService;
@@ -30,7 +30,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
 
-    @PostMapping("/register")
+    @PostMapping("/")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
         ModelMapper modelMapper = new ModelMapper();
         User user = modelMapper.map(userDTO,User.class);
