@@ -45,7 +45,7 @@ public class UserController {
 	}
 
     @PutMapping("buy/{id}")
-    public ResponseEntity<User> putMethodName(@PathVariable Long id,
+    public ResponseEntity<User> getProduct(@PathVariable Long id,
     @RequestBody Map<String, Long> requestBody) {
         Long productId = requestBody.get("productId");
 
