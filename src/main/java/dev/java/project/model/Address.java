@@ -1,6 +1,9 @@
 package dev.java.project.model;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +42,7 @@ public class Address {
     @Column(name = "updated_date", nullable = false)
     private LocalDateTime updatedDate;
 
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

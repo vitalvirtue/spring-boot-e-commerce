@@ -2,6 +2,9 @@ package dev.java.project.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +40,7 @@ public class CreditCard {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
