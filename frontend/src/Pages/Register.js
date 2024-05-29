@@ -24,7 +24,7 @@ const styles = theme => ({
 function Register(props) {
 
 
-    const REGISTER_URI = '/api/register';
+    const REGISTER_URI = 'public/register';
 
     const [state,setState] =  React.useState({
         firstname :{

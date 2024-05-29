@@ -6,11 +6,10 @@ import dev.java.project.dto.UserDTO;
 import dev.java.project.model.CreditCard;
 import dev.java.project.model.User;
 import dev.java.project.services.CreditCardService;
-import dev.java.project.services.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/credit-cards")
+@CrossOrigin(origins = "http://localhost:3000") 
 public class CreditCardController {
 
     @Autowired
