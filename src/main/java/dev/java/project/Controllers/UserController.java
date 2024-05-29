@@ -18,6 +18,7 @@ public class UserController {
 
     @GetMapping("/home")
     public ResponseEntity<String> getMethodName(@RequestParam String param) {
+        System.out.println("\n\n\n\n\n\n\n");
         return ResponseEntity.ok("User registered successfully");
     }
     
