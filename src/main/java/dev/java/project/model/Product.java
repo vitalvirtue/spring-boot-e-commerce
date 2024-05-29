@@ -27,9 +27,6 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    @Column(name = "type", nullable = false)
-    private String type;
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
