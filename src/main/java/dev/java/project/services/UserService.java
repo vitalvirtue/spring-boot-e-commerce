@@ -80,6 +80,24 @@ public class UserService {
 
     public User buyOrReturnProduct(User user) {
         
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+
+        
+
+        if (authentication != null && authentication.isAuthenticated()){
+            String userEmail = authentication.getName();
+            User aut_user = getUserByEmail(userEmail);
+            
+            if(aut_user.getId() != user.getId()){
+                log.warn("Users only buy/return their product", user.getId());
+				return aut_user;
+                }
+             }
+
+
+        
+
         User newUser = userRepository.save(user);
             
         log.info("User has been saved successfully with id = {}.", newUser.getId());
