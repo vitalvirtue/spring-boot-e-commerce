@@ -1,4 +1,4 @@
-package dev.java.project.controllers;
+package dev.java.project.Controllers;
 
 import dev.java.project.dto.UserDTO;
 import dev.java.project.model.User;
