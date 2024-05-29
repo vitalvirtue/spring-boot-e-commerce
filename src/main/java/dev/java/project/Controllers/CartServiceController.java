@@ -1,4 +1,4 @@
-package dev.java.project.Controllers;
+package dev.java.project.controllers;
 
 public class CartServiceController {
   

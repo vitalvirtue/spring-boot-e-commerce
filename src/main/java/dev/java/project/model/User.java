@@ -1,4 +1,3 @@
-
 package dev.java.project.model;
 
 import javax.persistence.*;
@@ -18,23 +17,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
-
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "is_admin", nullable = false)
-    private boolean isAdmin;
-
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
-
     @Column(name = "gender")
     private String gender;
+
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -42,10 +38,10 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "updated_date", nullable = false)
-    private LocalDateTime updatedDate;
+    @Column(name = "purchase_date")
+    private LocalDateTime purchaseDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
