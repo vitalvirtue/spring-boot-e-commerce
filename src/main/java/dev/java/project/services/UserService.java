@@ -6,6 +6,8 @@ import dev.java.project.dao.UserRepository;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
@@ -35,4 +37,38 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+
+    public boolean deleteUser(long id) {
+		try {
+			
+             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+
+            if (!userRepository.existsById(id)) {
+				log.warn("User not found with id: {}", id);
+				return false;
+			}
+
+             if (authentication != null && authentication.isAuthenticated()){
+                String userEmail = authentication.getName();
+                User user = getUserByEmail(userEmail);
+                if(user.getId() != id){
+                    log.warn("Users only delete themself", id);
+				    return false;
+                }
+             }
+            
+            
+            else {
+            
+				userRepository.deleteById(id);
+				log.info("User deleted successfully with id: {}", id);
+			}
+		} catch (Exception e) {
+			log.error("An error occurred while deleting user with id: {}: {}", id, e.getMessage());
+			throw e;
+		}
+		return true;
+	}
 }
