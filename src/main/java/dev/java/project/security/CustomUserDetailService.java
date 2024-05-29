@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import dev.java.project.model.User;
 import dev.java.project.dao.UserRepository;
+import dev.java.project.model.User;
 
 @AllArgsConstructor
 @Service
