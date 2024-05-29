@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -36,6 +37,11 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User getUserByID(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElseThrow(() -> new RuntimeException("User not found with id " + id));
     }
 
 
@@ -71,4 +77,14 @@ public class UserService {
 		}
 		return true;
 	}
+
+    public User buyOrReturnProduct(User user) {
+        
+        User newUser = userRepository.save(user);
+            
+        log.info("User has been saved successfully with id = {}.", newUser.getId());
+		return newUser;
+    }
+
+
 }
