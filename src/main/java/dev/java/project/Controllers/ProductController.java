@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin
 @AllArgsConstructor
 public class ProductController {
 

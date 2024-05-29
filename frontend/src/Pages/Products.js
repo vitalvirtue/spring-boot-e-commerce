@@ -137,7 +137,7 @@ const Products = () => {
     // Modal things
 
     const SESSION_PERSIST_URL = 'api/persist/?msg='
-    const ADD_TO_CART_URL = 'api/v1/add';
+    const ADD_TO_CART_URL = 'api/credit-cards';
 
 
     const [open, setOpen] = React.useState(false);
@@ -195,7 +195,7 @@ const Products = () => {
                     <Typography variant="h5">Price :
                             <span style={{ textDecoration: "line-through" }}>
                             ₹ {dress.d_price}</span>
-                        {' '} <span style={{ color: "red" }}>{dress.f_discount}</span></Typography>
+                        {' '} <span style={{ color: "green" }}>{dress.f_discount}</span></Typography>
                 </Grid>
                 : <Grid>₹ {dress.d_price}</Grid>
         }
@@ -207,7 +207,7 @@ const Products = () => {
             </Grid>
             <Grid item>
                 <IconButton onClick={handlePersist}>
-                    < Favorite color="secondary" />
+                    < Favorite style={{ color: '#20B2AA' }} />
                 </IconButton>
             </Grid>
         </Grid>

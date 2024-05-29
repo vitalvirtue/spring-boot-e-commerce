@@ -24,7 +24,7 @@ const styles = theme => ({
 function Register(props) {
 
 
-    const REGISTER_URI = 'public/register';
+    const REGISTER_URI = 'http://localhost:8080/public/register';
 
     const [state,setState] =  React.useState({
         firstname :{
@@ -40,10 +40,6 @@ function Register(props) {
             error:null
         }, 
         password :{
-            value :"",
-            error:null
-        }, 
-        username :{
             value :"",
             error:null
         }, 
@@ -65,7 +61,6 @@ function Register(props) {
         const payload = {
             firstName  : state.firstname.value, 
             lastName  :state.lastname.value, 
-            userName : state.username.value,
             password : state.password.value, 
             email : state.email.value, 
             gender : state.gender.value             
@@ -128,14 +123,6 @@ function Register(props) {
                             <TextField id="email" label="Email" type="email" name="email" onChange={handleChange} value={state.email.value} fullWidth autoFocus required />
                         </Grid>
                         
-                    </Grid>
-                    <Grid container spacing={4} alignItems="flex-end">
-                         <Grid item>
-                            <Face />
-                        </Grid>
-                        <Grid item md={true} sm={true} xs={true}>
-                            <TextField id="username" label="username" name="username" onChange={handleChange} value={state.username.value} fullWidth autoFocus required />
-                        </Grid>                        
                     </Grid>
                     <Grid container justify="flex-start" style={{marginTop:"1.3em"}}>
                          <FormControl component="fieldset">

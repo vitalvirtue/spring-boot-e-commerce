@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/credit-cards")
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin
 public class CreditCardController {
 
     @Autowired

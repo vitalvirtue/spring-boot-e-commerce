@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/address")
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin
 @AllArgsConstructor
 public class AddressController {
   

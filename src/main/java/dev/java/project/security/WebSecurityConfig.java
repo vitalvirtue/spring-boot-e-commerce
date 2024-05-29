@@ -19,52 +19,53 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new CustomAuthenticationSuccessHandler();
-    }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                // .cors(cors -> cors.disable())
-                .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/public/**").permitAll() // Public alanlara izin ver
-                                .requestMatchers("/public/register").permitAll()
-                                .anyRequest().authenticated()
-
-                )
-                .formLogin(form -> form
-                                .loginPage("/public/") // Giriþ sayfasý URL'si
-                                .loginProcessingUrl("/login") // Giriþ iþlemi URL'si
-                                .successHandler(authenticationSuccessHandler()) // Baþarýlý giriþ iþlemi handler'ý
-                                .permitAll() // Giriþ sayfasýna herkes eriþebilir
-                )
-                .logout(logout -> logout
-                                .logoutSuccessUrl("/public/?logout=true") // Çýkýþ baþarýlý olduðunda yönlendirilecek URL
-                                .deleteCookies("JSESSIONID") // Çýkýþta çerezlerin silinmesi
-                                .permitAll() // Çýkýþ URL'sine herkes eriþebilir
-                )
-                .httpBasic(withDefaults()); // HTTP temel kimlik doðrulama kullanýlacak
-        return http.build();
-    }
+    
+        @Autowired
+        private UserDetailsService userDetailsService;
+    
+        @SuppressWarnings("deprecation")
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests(authorizeRequests ->
+                            authorizeRequests
+                                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                    .requestMatchers("/public/**").permitAll()
+                                    .requestMatchers("/api/**").authenticated()
+                                    .anyRequest().authenticated()
+                    )
+                    .formLogin(withDefaults())
+                    // .formLogin(form -> form
+                    //                 .loginPage("/public/") // Giriþ sayfasý URL'si
+                    //                 .loginProcessingUrl("/login") // Giriþ iþlemi URL'si
+                    //                 .successHandler(authenticationSuccessHandler()) // Baþarýlý giriþ iþlemi handler'ý
+                    //                 .permitAll() // Giriþ sayfasýna herkes eriþebilir
+                    // )
+                    .logout(logout -> logout
+                                    .logoutSuccessUrl("/public/?logout=true") // Çýkýþ baþarýlý olduðunda yönlendirilecek URL
+                                    .deleteCookies("JSESSIONID") // Çýkýþta çerezlerin silinmesi
+                                    .permitAll() // Çýkýþ URL'sine herkes eriþebilir
+                    )
+                    .httpBasic(withDefaults())
+                    .csrf().disable();
+            return http.build();
+        }
+    
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+    
+        @Bean
+        public AuthenticationProvider authenticationProvider() {
+            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+            provider.setUserDetailsService(userDetailsService);
+            provider.setPasswordEncoder(passwordEncoder());
+            return provider;
+        }
+    
+        @Bean
+        public AuthenticationSuccessHandler authenticationSuccessHandler() {
+            return new CustomAuthenticationSuccessHandler();
+        }
 }
