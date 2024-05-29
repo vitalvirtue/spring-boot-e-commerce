@@ -45,7 +45,7 @@ public class UserController {
 	}
 
     @PutMapping("buy/{id}")
-    public ResponseEntity<User> getProduct(@PathVariable Long id,
+    public ResponseEntity<User> putMethodName(@PathVariable Long id,
     @RequestBody Map<String, Long> requestBody) {
         Long productId = requestBody.get("productId");
 
@@ -54,20 +54,6 @@ public class UserController {
         LocalDateTime dateTime = LocalDateTime.now();
         user.setPurchaseDate(dateTime);
         user.setProduct(productService.getProduct(productId).get());
-        
-        return ResponseEntity.ok(userService.buyOrReturnProduct(user));
-    }
-
-
-    @PutMapping("return/{id}")
-    public ResponseEntity<User> returnProduct(@PathVariable Long id) {
-        
-
-        User user = userService.getUserByID(id);
-
-        
-        user.setPurchaseDate(null);
-        user.setProduct(null);
         
         return ResponseEntity.ok(userService.buyOrReturnProduct(user));
     }
