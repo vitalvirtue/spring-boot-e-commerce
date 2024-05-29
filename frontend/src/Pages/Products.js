@@ -16,7 +16,7 @@ import Modal from '@material-ui/core/Modal';
 const useStyles = makeStyles( (theme) => ({
     heading:{
         fontFamily:"Lobster,cursive",
-        color:"#fc30d0",
+        color:"#1B6453",
 
     },
     image :{
@@ -28,7 +28,7 @@ const useStyles = makeStyles( (theme) => ({
     },
     searchItem :{
         padding :"1em",
-        backgroundColor :"rgb(255,0,0,0.2)",
+        backgroundColor :"#DBE6E0",
         borderRadius :"50px",
         margin:"0.5em"
     },
