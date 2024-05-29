@@ -6,5 +6,5 @@ import dev.java.project.model.Address;
 
 @Repository
 public interface AddressesRepository extends JpaRepository<Address, Long> {
-    
+  Address findByAddressId(Long addressId);
 }
