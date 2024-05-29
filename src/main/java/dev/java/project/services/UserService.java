@@ -66,11 +66,11 @@ public class UserService {
              }
             
             
-            else {
             
-				userRepository.deleteById(id);
-				log.info("User deleted successfully with id: {}", id);
-			}
+        
+			userRepository.deleteById(id);
+			log.info("User deleted successfully with id: {}", id);
+			
 		} catch (Exception e) {
 			log.error("An error occurred while deleting user with id: {}: {}", id, e.getMessage());
 			throw e;
