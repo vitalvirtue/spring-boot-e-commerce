@@ -1,56 +1,43 @@
-package dev.java.project.Controllers;
+package dev.java.project.controllers;
 
+import dev.java.project.dto.UserDTO;
 import dev.java.project.model.Product;
-import dev.java.project.Services.ProductService;
+import dev.java.project.model.User;
+import dev.java.project.services.ProductService;
+import dev.java.project.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @AllArgsConstructor
 public class ProductController {
-  
-    private final ProductService productService;
 
-    @GetMapping
-    public List<Product> getProducts(HttpServletRequest request, @RequestParam(required = false) String category) {
-        List<Product> products = productService.getProducts();
-        if (category != null) {
-            return products.stream().filter(product -> product.getCategory().equals(category)).collect(Collectors.toList());
-        }
-        return products;
-    }
+    @Autowired
+    private ProductService productService;
 
-    @GetMapping("/categories")
-    public List<String> getCategories() {
-        List<Product> products = productService.getProducts();
-        List<String> categories = new ArrayList<>();
-        for (Product product : products) {
-            if (!categories.contains(product.getCategory())) {
-                categories.add(product.getCategory());
-            }
-        }
-        return categories;
-    }
+    @GetMapping("/{id}")
+	public ResponseEntity<Optional<Product>> getProduct(@PathVariable(name = "id") long id) {
+        
+		return ResponseEntity.ok(productService.getProduct(id));
+	}
 
-    @GetMapping("/categories2")
-    public List<String> getCategories2() {
-        List<Product> products = productService.getProducts();
-        Map<String, Boolean> categories = new HashMap<>();
-        for (Product product : products) {
-            categories.put(product.getCategory(), true);
-        }
-        return new ArrayList<>(categories.keySet());
-    }
+
 }

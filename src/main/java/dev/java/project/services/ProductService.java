@@ -1,51 +1,32 @@
 package dev.java.project.services;
 
+import dev.java.project.model.CreditCard;
 import dev.java.project.model.Product;
+import dev.java.project.model.User;
+import lombok.extern.slf4j.Slf4j;
+import dev.java.project.dao.CreditCardRepository;
 import dev.java.project.dao.ProductRepository;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class ProductService {
-  
+
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> getProducts() {
-        return productRepository.findAll();
+    
+
+    public Optional<Product> getProduct(Long productId) {
+        return productRepository.findById(productId);
     }
 
-    public List<Product> getProducts(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage = productRepository.findAll(pageable);
-        return productPage.getContent();
-    }
-
-    public List<String> getCategories() {
-        List<Product> products = productRepository.findAll();
-        List<String> categories = new ArrayList<>();
-        for (Product product : products) {
-            if (!categories.contains(product.getCategory())) {
-                categories.add(product.getCategory());
-            }
-        }
-        return categories;
-    }
-
-    public List<String> getCategories2() {
-        List<Product> products = productRepository.findAll();
-        Map<String, Boolean> categories = new HashMap<>();
-        for (Product product : products) {
-            categories.put(product.getCategory(), true);
-        }
-        return new ArrayList<>(categories.keySet());
-    }
+   
 }
